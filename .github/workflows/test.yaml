@@ -6,6 +6,9 @@ on:
     branches:
       - master
 
+env:
+  ACTION_USE: $GITHUB_SHA
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -28,7 +31,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create kind cluster with custom vars
-        uses: helm/kind-action@${GITHUB_SHA}
+        uses: helm/kind-action@${{env.ACTION_USE}}
         with:
           cluster_name: "custom-name"
           config: ./tests/config.yaml
